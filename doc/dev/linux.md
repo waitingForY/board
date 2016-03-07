@@ -1,9 +1,6 @@
-# board
-
-## Dependencies
-
-> If you're developing under Windows, see docs to setup，and the following steps are for linux.
-
+# Setup on linux
+##dependence
+this step is to set up the basic express, and it will then generate a working directory automatically:
 **`Node`(>= v4.0)** and a global `express` are required.
 
 **It's recommended to use the latest version of npm**, to update npm run:
@@ -33,5 +30,3 @@ npm install
 cd board
 npm start
 ```
-For more development environment: see [Setup on Windows](doc/dev/windows.md) or [Setup on Linux](doc/dev/linux.md)     
-For more information of this project :see [doc of this pro](doc/SUMRASE.md)

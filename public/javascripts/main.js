@@ -1,3 +1,5 @@
+
+//main.js
 var gridster;
     $(function(){
         gridster = $(".gridster ul").gridster({    //通过jquery选择DOM实现gridster
@@ -17,24 +19,44 @@ var gridster;
                 stop: function(event, ui){
                     console.log("stop");
                 }
+            },
+            resize: {
+                enabled: true
+                //handle_class: 'con'
+
             }
         }).data('gridster');
     });
     $("#save").click(function () {
-        var title=document.getElementById("title").value;
+
+        var title={text:document.getElementById("title").value};
         var xAxis=document.getElementById('xAxis').value;
-        var yAxis=document.getElementById('yAxis').value;
+        var yAxis={text:document.getElementById('yAxis').value};
         var channel=document.getElementById('msgid').value;
         var li=gridster.add_widget('<li class="con">The HTML of the widget...</li>', 4, 2);
+        var div=$('<div></div>', {
+            id: 'drawchart',
+            margin:10+"px",
+            width:"100%",
+            height:"100%"
+
+        }).appendTo($(li));
     var socket=io.connect('http://localhost:3000');
     var msg={};
-    msg.title=title;
-    msg.yAxis=yAxis;
+    //msg.title=title;
+    //msg.yAxis=yAxis;
     msg.channel=channel;
     //msg.xAxis=xAxis;
     socket.emit('chartmsg',msg);
-    socket.on('test',function (data) {
-        var json=data;
-        $(li).highcharts(json);
+    socket.on('pushData',function (data) {
+        //console.log(JSON.stringify(data));
+         var payload=data;
+        //payload.className='chart';
+         payload.title=title;
+         payload.yAxis.title=yAxis;
+        //payload.className='test';
+        //var chart=li.highcharts(payload);
+        $(div).highcharts(payload);
+
     });
 });
